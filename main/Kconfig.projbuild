@@ -1,0 +1,67 @@
+menu "Example Configuration"
+
+    menu "switch driver config"
+
+    config BUZZER_GPIO_0
+    int "Buzzer 0 pin GPIO number"
+    range 0 33
+    default 15
+    help
+        Buzzer pin GPIO number.
+        
+    config LIGHT_GPIO_BLUE
+        int "Light blue pin GPIO number"
+        range 0 33
+        default 2
+        help
+            There are more enumerations like that
+            up to GPIO39, excluding GPIO20, GPIO24 and GPIO28..31.
+            They are not shown here to reduce redundant information.
+            @note GPIO34..39 are input mode only.
+    endmenu
+
+    menu "mesh config"
+        config LIGHT_VERSION
+            string "Switch version"
+            default "1.0.0"
+            help
+                Version of the switch
+        
+        config LIGHT_MEMORY_DEBUG
+            bool "Enable memory debugging"
+            default n
+            help
+                Enable memory debugging.
+        
+        config LIGHT_BLE_GATEWAY
+            bool "Enable the BLE gateway on the non-root node"
+            default n
+            help
+                Enabling the BLE gateway on a non-root node,
+                enabling the BLE gateway will consume a lot of memory.
+    
+        config LIGHT_NETWORKING_TIME_OPTIMIZE_ENABLE
+            bool "Optimize networking time"
+            default n
+            help
+                1. Set the Bluetooth configuration network device to a fixed root node, eliminating the time of competing for the root node
+                2. Once the networking is complete, select again whether there is a better root node.
+                3. When power is turned on again, the device that was the root node last time is selected as the root node by default.
+        
+        config LIGHT_RESTART_COUNT_RESET
+            int "Reset the number of times the device has been powered off continuously to enter the configured network mode"
+            range 3 10
+            default 10
+            help
+                Reset the number of times the device has been powered off continuously to enter the configured network mode.
+        
+        config LIGHT_RESTART_COUNT_FALLBACK
+            int "Number of times the device restarted abnormally, entered, and exited from the previous version"
+            range 15 32
+            default 20
+            help
+                Number of times the device restarted abnormally, entered, and exited from the previous version.
+    endmenu
+
+endmenu
+
